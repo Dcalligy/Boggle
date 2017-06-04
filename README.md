@@ -11,8 +11,8 @@ So far we have...
 5. Using Java API class ArrayList
 6. Reading a data file
   a. Using a try/catch/finally block to handle exceptions and close resource files
-    i. IOException 
-    ii. URISyntaxException 
+       i. IOException 
+      ii. URISyntaxException 
   b. Using Java API class Scanner
   c. Using Java API class URL
   d. Using Java API class File
