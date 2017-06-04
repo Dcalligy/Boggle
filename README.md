@@ -10,12 +10,12 @@ So far we have...
 4. Calling a method of a class using the reference object 
 5. Using Java API class ArrayList
 6. Reading a data file
-  a. Using a try/catch/finally block to handle exceptions and close resource files
-       i. IOException 
-      ii. URISyntaxException 
-  b. Using Java API class Scanner
-  c. Using Java API class URL
-  d. Using Java API class File
+a. Using a try/catch/finally block to handle exceptions and close resource files
+i. IOException 
+ii. URISyntaxException 
+b. Using Java API class Scanner
+c. Using Java API class URL
+d. Using Java API class File
 7. Saving data from a data file in an ArrayList
 8. Adding method signatures to an interface 
 9. Adding a constant to an interface 
