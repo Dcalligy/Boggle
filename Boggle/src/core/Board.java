@@ -7,6 +7,7 @@ package core;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -14,6 +15,12 @@ import java.util.ArrayList;
  */
 // Method, where we create the board of our game
 public class Board implements IBoard {
+    
+    int nextline = 0;
+    Random randomNum = new Random();
+    
+    // ArrayList to store the game data
+    private ArrayList<String> shakeDiceGameData = new ArrayList<String>();
     // stores the letter data from the data file
     ArrayList<String> boggleData;
     
@@ -28,15 +35,41 @@ public class Board implements IBoard {
         boggleData = diceData;
         dictionaryData = dictionary;
         boggleDice = new ArrayList<Die>();
+
     }
-    
     
     @Override
     public void shakeDice(){
-        throw new UnsupportedOperationException("Not supported yet."); // To change the body of generated methods, choose Tools | Templates.
         
+        // loop trough the 16 dice
+        // rancomly select one die
+        // keep track of which die was selected
+        // roll the die by calling method rollDie in class Die
+        // store that value in our new member variable that has the game data     
+        for(int i = 0; i < NUMBER_OF_DICE; i++){
+            Die die = new Die();
+            int randomdie = randomNum.nextInt(16);
+            int dieletter = die.rollDie();
+        
+            int counterdie = (randomdie * 6) + dieletter;
+        
+            getShakeDiceGameData().add(boggleData.get(counterdie).toString());
+            
+        }
     }
-
+    
+    @Override
+    public void RanLetters(){
+        
+        for(String letter : getShakeDiceGameData()){
+            
+            System.out.print( letter + " ");// print out the letter plus space
+            nextline++;
+            if((nextline % 4 == 0))
+                System.out.println();
+        }
+    }
+    
     @Override
     public void populateDice() {
         
@@ -57,15 +90,20 @@ public class Board implements IBoard {
                 die.addLetter(boggleData.get(counter).toString());
                 counter++;
             }
-            
-            // temp
-            System.out.print("Die " + dice + ": ");
+            // System.out.print("Die " + dice + ": ");
             die.displayLetters();
             System.out.println();
             
             boggleDice.add(die);
                    
         }
+    }
+    
+    /**
+     * @return the shakeDiceGameData
+     */
+    public ArrayList<String> getShakeDiceGameData() {
+        return shakeDiceGameData;
     }
     
 }

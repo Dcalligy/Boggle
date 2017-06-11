@@ -6,6 +6,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -17,8 +18,8 @@ import java.util.ArrayList;
 public class Die implements IDie{
     
     private ArrayList<String> letters = new ArrayList<String>(); // stores dice data for the sides of the die
-   
-
+    
+    
     @Override
     // Enhanced for loop to output each letter on ech of the six sides of die
     public void displayLetters() {
@@ -35,12 +36,16 @@ public class Die implements IDie{
         
         letters.add(letter);
     }
-
+    
+    int die;
     @Override
-    public String rollDie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
+    public int rollDie() {
+        
+        for(int counter = 0; counter < NUMBER_OF_SIDES; counter++){
+            Random numbers = new Random();
+            die = numbers.nextInt(6);
+            die++;
+        }
+        return die;
+    }   
 }

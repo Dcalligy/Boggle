@@ -21,5 +21,5 @@ public interface IDie {
     public void addLetter(String letter);
     
     // this method will return the current letter of the die
-    public String rollDie();
+    public int rollDie();
 }

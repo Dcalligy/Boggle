@@ -21,6 +21,8 @@ public interface IBoard {
     // This method will invoke the rollDie method for each of the 16 dice in the game
     public void shakeDice();
     
+    public void RanLetters();
+    
     // This method will add the data to the dice
     public void populateDice();
 }

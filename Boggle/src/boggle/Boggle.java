@@ -28,12 +28,15 @@ public class Boggle {
     // name of the dictionary file using relative pathing
     private static String dictionaryFileName = new String("../data/Dictionary.txt");
     
-
+    // Array list to store boggle data equal to shakeDice
+    private static ArrayList<String> shakeDice = new ArrayList();
+    
     /**
      * @param args the command line arguments
-     */
+     */  
     public static void main(String[] args) {
-        System.out.println("Welcome to Boggle!");
+        
+        System.out.print("Boggle board");
         JOptionPane.showMessageDialog(null, "Let's play Boggle!");
         
         // read in dice data file 
@@ -46,10 +49,11 @@ public class Boggle {
         
         // create an instance of Board parsing the boggleData
         Board board = new Board(data.getData(), dictionary.getData());
-        board.populateDice();
-        
-        System.out.println("There are " + dictionary.getData().size() + " entries in the dictionary.");
-        
+        board.shakeDice();
+        System.out.println();
+        board.RanLetters();
+        System.out.println();
+      
     }
     
 }
