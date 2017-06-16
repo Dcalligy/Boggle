@@ -19,7 +19,6 @@ public class Die implements IDie{
     
     private ArrayList<String> letters = new ArrayList<String>(); // stores dice data for the sides of the die
     
-    
     @Override
     // Enhanced for loop to output each letter on ech of the six sides of die
     public void displayLetters() {
