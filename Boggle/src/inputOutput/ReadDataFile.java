@@ -60,6 +60,5 @@ public class ReadDataFile implements IReadDataFile {
     // @return the data
     public ArrayList<String> getData(){
         return data;
-    }
-    
+    }   
 }

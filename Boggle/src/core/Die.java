@@ -24,7 +24,7 @@ public class Die implements IDie{
     public void displayLetters() {
         
            for(String value : letters){
-               System.out.print("" + value +" ");
+               System.out.print("" + value +" ");// prints out the toimes
            }
     }
 
@@ -39,12 +39,13 @@ public class Die implements IDie{
     int die;
     @Override
     public int rollDie() {
-        
-        for(int counter = 0; counter < NUMBER_OF_SIDES; counter++){
+       
+        for(int counter = 0; counter <= NUMBER_OF_SIDES; counter++){
             Random numbers = new Random();
             die = numbers.nextInt(6);
             die++;
         }
         return die;
+        
     }   
 }

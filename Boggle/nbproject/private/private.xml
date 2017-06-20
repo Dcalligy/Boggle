@@ -5,9 +5,7 @@
         <group>
             <file>file:/C:/Users/Dillon/Documents/NetBeansProjects/Boggle/src/boggle/Boggle.java</file>
             <file>file:/C:/Users/Dillon/Documents/NetBeansProjects/Boggle/src/core/Board.java</file>
-            <file>file:/C:/Users/Dillon/Documents/NetBeansProjects/Boggle/src/core/IBoard.java</file>
-            <file>file:/C:/Users/Dillon/Documents/NetBeansProjects/Boggle/src/core/Die.java</file>
-            <file>file:/C:/Users/Dillon/Documents/NetBeansProjects/Boggle/src/core/IDie.java</file>
+            <file>file:/C:/Users/Dillon/Documents/NetBeansProjects/Boggle/src/userInterface/BoggleUi.java</file>
         </group>
     </open-files>
 </project-private>

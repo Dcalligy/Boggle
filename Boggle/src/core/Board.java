@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 package core;
-
+import java.util.Random;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  *
@@ -21,6 +20,7 @@ public class Board implements IBoard {
     
     // ArrayList to store the game data
     private ArrayList<String> shakeDiceGameData = new ArrayList<String>();
+    
     // stores the letter data from the data file
     ArrayList<String> boggleData;
     
@@ -35,24 +35,24 @@ public class Board implements IBoard {
         boggleData = diceData;
         dictionaryData = dictionary;
         boggleDice = new ArrayList<Die>();
-
     }
+    
     
     @Override
     public void shakeDice(){
         
-        // loop trough the 16 dice
-        // rancomly select one die
+        // loop through the 16 dice
+        // randomly select one die
         // keep track of which die was selected
         // roll the die by calling method rollDie in class Die
-        // store that value in our new member variable that has the game data     
+        // store that value in our new member variable that has the game data
         for(int i = 0; i < NUMBER_OF_DICE; i++){
             Die die = new Die();
             int randomdie = randomNum.nextInt(16);
             int dieletter = die.rollDie();
-        
+            
             int counterdie = (randomdie * 6) + dieletter;
-        
+            
             getShakeDiceGameData().add(boggleData.get(counterdie).toString());
             
         }
@@ -63,13 +63,13 @@ public class Board implements IBoard {
         
         for(String letter : getShakeDiceGameData()){
             
-            System.out.print( letter + " ");// print out the letter plus space
+            System.out.print( letter + " "); // print out the letter plus space
             nextline++;
             if((nextline % 4 == 0))
                 System.out.println();
         }
     }
-    
+
     @Override
     public void populateDice() {
         
@@ -90,7 +90,9 @@ public class Board implements IBoard {
                 die.addLetter(boggleData.get(counter).toString());
                 counter++;
             }
-            // System.out.print("Die " + dice + ": ");
+            
+            // temp
+            System.out.print("Die " + dice + ": ");
             die.displayLetters();
             System.out.println();
             
@@ -98,7 +100,7 @@ public class Board implements IBoard {
                    
         }
     }
-    
+
     /**
      * @return the shakeDiceGameData
      */
