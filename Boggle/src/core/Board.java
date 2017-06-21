@@ -15,11 +15,8 @@ import java.util.ArrayList;
 // Method, where we create the board of our game
 public class Board implements IBoard {
     
-    int nextline = 0;
-    Random randomNum = new Random();
-    
     // ArrayList to store the game data
-    private ArrayList<String> shakeDiceGameData = new ArrayList<String>();
+    private ArrayList<String> shakeDiceGameData;
     
     // stores the letter data from the data file
     ArrayList<String> boggleData;
@@ -29,6 +26,12 @@ public class Board implements IBoard {
     
     // collection of dice
     ArrayList<Die> boggleDice;
+    
+    // collection of 16 dice with dice and letters randomized
+    private ArrayList<String> gameDice;
+    
+    // keep track of which die has been used 
+    private ArrayList<Integer> used;
     
     public Board(ArrayList<String> diceData, ArrayList<String> dictionary){
         
@@ -46,30 +49,35 @@ public class Board implements IBoard {
         // keep track of which die was selected
         // roll the die by calling method rollDie in class Die
         // store that value in our new member variable that has the game data
-        for(int i = 0; i < NUMBER_OF_DICE; i++){
-            Die die = new Die();
-            int randomdie = randomNum.nextInt(16);
-            int dieletter = die.rollDie();
+        gameDice = new ArrayList();
+        used = new ArrayList();
+        int dieCount = 0;
+        
+        while(dieCount < 16){
             
-            int counterdie = (randomdie * 6) + dieletter;
+            // randomly select a die
+            int index = getRandomDie();
             
-            getShakeDiceGameData().add(boggleData.get(counterdie).toString());
-            
+            if(!used.contains(index)){
+                
+                Die die = boggleDice.get(index);
+                gameDice.add(die.rollDie());
+                
+                used.add(new Integer(index));
+                
+                dieCount++;
+            }
         }
     }
     
-    @Override
-    public void RanLetters(){
+    private int getRandomDie(){
         
-        for(String letter : getShakeDiceGameData()){
-            
-            System.out.print( letter + " "); // print out the letter plus space
-            nextline++;
-            if((nextline % 4 == 0))
-                System.out.println();
-        }
+        // randomly select a die from the 16 dice
+        Random random = new Random();
+        int value = random.nextInt(NUMBER_OF_DICE);
+        return value;   
     }
-
+    
     @Override
     public void populateDice() {
         
@@ -106,6 +114,21 @@ public class Board implements IBoard {
      */
     public ArrayList<String> getShakeDiceGameData() {
         return shakeDiceGameData;
+    }
+    
+    public void displayGameData(){
+        
+        int nextline = 0;
+        // loop through the contents of the container names letters
+        for(String value : gameDice){
+            
+            System.out.print(value + " ");
+            nextline++;
+            
+            if(nextline % 4 == 0)
+                System.out.println();
+        }
+        
     }
     
 }

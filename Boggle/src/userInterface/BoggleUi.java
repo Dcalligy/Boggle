@@ -35,7 +35,6 @@ public class BoggleUi{
     private JLabel timeLabel;
 
     public BoggleUi(){
-        
     	initComponents();
     }
 

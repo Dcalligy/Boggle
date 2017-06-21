@@ -18,6 +18,8 @@ import java.util.Random;
 public class Die implements IDie{
     
     private ArrayList<String> letters = new ArrayList<String>(); // stores dice data for the sides of the die
+    private String letter;
+    int die;
     
     @Override
     // Enhanced for loop to output each letter on ech of the six sides of die
@@ -36,16 +38,13 @@ public class Die implements IDie{
         letters.add(letter);
     }
     
-    int die;
     @Override
-    public int rollDie() {
+    public String rollDie() {
        
-        for(int counter = 0; counter <= NUMBER_OF_SIDES; counter++){
-            Random numbers = new Random();
-            die = numbers.nextInt(6);
-            die++;
-        }
-        return die;
+        Random random = new Random();
+        die = random.nextInt(NUMBER_OF_SIDES);
+        letter = letters.get(die);
+        return letter;
         
     }   
 }

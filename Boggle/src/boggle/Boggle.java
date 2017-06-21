@@ -56,10 +56,9 @@ public class Boggle {
         System.out.println();
         
         board.shakeDice();
-        System.out.print("Boggle board");
-        System.out.println();
-        board.RanLetters();
-        System.out.println();
+        System.out.println("Boggle board");
+        board.displayGameData();
+        
         BoggleUi BoggleUi = new BoggleUi();
          
     }
