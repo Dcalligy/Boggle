@@ -31,7 +31,7 @@ public class Board implements IBoard {
     private ArrayList<String> gameDice;
     
     // keep track of which die has been used 
-    private ArrayList<Integer> used;
+    private ArrayList<Integer> diceUsed;
     
     public Board(ArrayList<String> diceData, ArrayList<String> dictionary){
         
@@ -50,7 +50,7 @@ public class Board implements IBoard {
         // roll the die by calling method rollDie in class Die
         // store that value in our new member variable that has the game data
         gameDice = new ArrayList();
-        used = new ArrayList();
+        diceUsed = new ArrayList();
         int dieCount = 0;
         
         while(dieCount < 16){
@@ -58,12 +58,12 @@ public class Board implements IBoard {
             // randomly select a die
             int index = getRandomDie();
             
-            if(!used.contains(index)){
+            if(!diceUsed.contains(index)){
                 
                 Die die = boggleDice.get(index);
                 gameDice.add(die.rollDie());
                 
-                used.add(new Integer(index));
+                diceUsed.add(new Integer(index));
                 
                 dieCount++;
             }
