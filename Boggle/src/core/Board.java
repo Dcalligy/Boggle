@@ -127,8 +127,6 @@ public class Board implements IBoard {
             
             if(nextline % 4 == 0)
                 System.out.println();
-        }
-        
-    }
-    
+        }   
+    }   
 }
