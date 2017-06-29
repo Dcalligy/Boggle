@@ -9,7 +9,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.Timer;
 
 /**
  *
@@ -33,9 +36,25 @@ public class BoggleUi{
     private JLabel scoreLabel;
     private JButton currentSubmit;
     private JLabel timeLabel;
+    
+    // class Board reference object
+    private Board board;
+    
+    // reset listener
+    private ResetGameListener reset;
+    
+    // timer
+    private Timer timer;
+    private int minutes = 3;
+    private int seconds = 0;
+    
 
-    public BoggleUi(){
-    	initComponents();
+    public BoggleUi(Board inBoard){
+        
+        board = inBoard;
+        reset = new ResetGameListener();
+        
+        initComponents();
     }
 
     private void initComponents(){
@@ -59,7 +78,7 @@ public class BoggleUi{
     	frame.setJMenuBar(menuBar);
     	frame.add(currentPanel, BorderLayout.SOUTH);
     	frame.add(wordsPanel, BorderLayout.CENTER);
-    	frame.add(bogglePanel, BorderLayout.WEST);
+    	//frame.add(bogglePanel, BorderLayout.WEST);
     	frame.setVisible(true);
     }
 
@@ -75,8 +94,12 @@ public class BoggleUi{
         
         newGame = new JMenuItem("New Game");
         newGame.setMnemonic('N');
+        newGame.addActionListener(reset);
+        
+        
         exit = new JMenuItem("Exit");
         exit.setMnemonic('E');
+        exit.addActionListener(new ExitListener());
         
         game.add(newGame);
         game.add(exit);
@@ -153,6 +176,12 @@ public class BoggleUi{
 
     // Boggle Panel
     private void setupBogglePanel(){
+        
+        // counter for the ArrayList of the 16 letters
+        int counter = 0;
+        
+        // get new letters for the game
+        board.shakeDice();
 
     	// initialize boggle panel
         bogglePanel = new JPanel(new GridLayout(4, 4));
@@ -168,8 +197,92 @@ public class BoggleUi{
             for(int col = 0; col < Board.GRID; col++){
                 
                 diceButtons[row][col] = new JButton();
+                diceButtons[row][col].setText(board.getShakeDiceGameData().get(counter));
                 bogglePanel.add(diceButtons[row][col]);
+                counter++;
             }
+        }
+
+    }
+    
+    private void setupTimer(){
+        
+        timer = new Timer(1000, new TimerListner());
+        timer.start();
+        
+    }
+    
+    private class ExitListener implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent ae){
+            
+            int response = JOptionPane.showConfirmDialog(null, "Confirm to exit Boggle?", 
+                    "Exit?", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION)
+                System.exit(0);
+            else if(response == JOptionPane.NO_OPTION)
+                System.exit(1);
+                
+        }    
+    }
+    
+    private class TimerListner implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent e){
+            setupTimer();
+            setupBogglePanel();
+            
+            if(seconds == 0 && minutes == 0){
+                timer.stop();
+            }
+            else{
+                
+                if(seconds == 0){
+                    
+                    seconds = 59;
+                    minutes--;
+                }
+                else{
+                    seconds--;
+                }
+            }
+            if(seconds < 10){
+                String strSeconds = "0" + String.valueOf(seconds);
+                timeLabel.setText(String.valueOf(minutes) + ":" + strSeconds);
+            }
+            else{
+                
+                timeLabel.setText(String.valueOf(minutes) + ":" + String.valueOf(seconds));
+            }
+                
+        }
+    }
+
+    private class ResetGameListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            setupBogglePanel();
+            
+            wordsArea.setText("");
+            scoreLabel.setText("0");
+            currentLabel.setText("");
+            timeLabel.setText("3:00");
+            
+            frame.add(bogglePanel, BorderLayout.WEST);
+            
+            frame.repaint();
+            frame.revalidate();
+            frame.setVisible(true);
+            
+            // restarts timer
+            timer.stop();
+            minutes = 3;
+            seconds = 0;
+            timer.start();
         }
     }
 }
