@@ -73,12 +73,14 @@ public class BoggleUi{
     	setupWordsPanel();
         // Initialize boggle JPanel
     	setupBogglePanel();
+        
+        setupTimer();
 
     	// add back into the frame and make it visible
     	frame.setJMenuBar(menuBar);
     	frame.add(currentPanel, BorderLayout.SOUTH);
     	frame.add(wordsPanel, BorderLayout.CENTER);
-    	//frame.add(bogglePanel, BorderLayout.WEST);
+    	frame.add(bogglePanel, BorderLayout.WEST);
     	frame.setVisible(true);
     }
 
@@ -197,7 +199,7 @@ public class BoggleUi{
             for(int col = 0; col < Board.GRID; col++){
                 
                 diceButtons[row][col] = new JButton();
-                diceButtons[row][col].setText(board.getShakeDiceGameData().get(counter));
+                diceButtons[row][col].setText(board.getGameDice().get(counter));
                 bogglePanel.add(diceButtons[row][col]);
                 counter++;
             }
@@ -221,8 +223,10 @@ public class BoggleUi{
                     "Exit?", JOptionPane.YES_NO_OPTION);
             if(response == JOptionPane.YES_OPTION)
                 System.exit(0);
-            else if(response == JOptionPane.NO_OPTION)
-                System.exit(1);
+            else if(response == JOptionPane.NO_OPTION){
+                System.out.println("No");
+            }
+                
                 
         }    
     }
@@ -231,9 +235,7 @@ public class BoggleUi{
         
         @Override
         public void actionPerformed(ActionEvent e){
-            setupTimer();
-            setupBogglePanel();
-            
+             
             if(seconds == 0 && minutes == 0){
                 timer.stop();
             }
@@ -271,12 +273,11 @@ public class BoggleUi{
             scoreLabel.setText("0");
             currentLabel.setText("");
             timeLabel.setText("3:00");
-            
+             
             frame.add(bogglePanel, BorderLayout.WEST);
             
             frame.repaint();
             frame.revalidate();
-            frame.setVisible(true);
             
             // restarts timer
             timer.stop();

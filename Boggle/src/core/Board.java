@@ -14,10 +14,7 @@ import java.util.ArrayList;
  */
 // Method, where we create the board of our game
 public class Board implements IBoard {
-    
-    // ArrayList to store the game data
-    private ArrayList<String> shakeDiceGameData;
-    
+     
     // stores the letter data from the data file
     ArrayList<String> boggleData;
     
@@ -61,7 +58,7 @@ public class Board implements IBoard {
             if(!diceUsed.contains(index)){
                 
                 Die die = boggleDice.get(index);
-                gameDice.add(die.rollDie());
+                getGameDice().add(die.rollDie());
                 
                 diceUsed.add(new Integer(index));
                 
@@ -109,24 +106,26 @@ public class Board implements IBoard {
         }
     }
 
-    /**
-     * @return the shakeDiceGameData
-     */
-    public ArrayList<String> getShakeDiceGameData() {
-        return shakeDiceGameData;
-    }
-    
     public void displayGameData(){
         
         int nextline = 0;
         // loop through the contents of the container names letters
-        for(String value : gameDice){
+        for(String value : getGameDice()){
             
             System.out.print(value + " ");
             nextline++;
             
             if(nextline % 4 == 0)
                 System.out.println();
-        }   
-    }   
+        }
+        
+    }
+
+    /**
+     * @return the gameDice
+     */
+    public ArrayList<String> getGameDice() {
+        return gameDice;
+    }
+    
 }

@@ -57,7 +57,7 @@ public class Boggle {
         
         board.shakeDice();
         board.displayGameData();
-        boggleData = board.getShakeDiceGameData();
+        boggleData = board.getGameDice();
         BoggleUi BoggleUi = new BoggleUi(board);
          
     }
