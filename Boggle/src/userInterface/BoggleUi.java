@@ -73,7 +73,7 @@ public class BoggleUi{
     	setupWordsPanel();
         // Initialize boggle JPanel
     	setupBogglePanel();
-        
+        // Initialize Timer
         setupTimer();
 
     	// add back into the frame and make it visible
@@ -169,7 +169,9 @@ public class BoggleUi{
         shakeDiceButton.setPreferredSize(new Dimension(240, 100));
         shakeDiceButton.setMinimumSize(new Dimension(240, 100));
         shakeDiceButton.setMaximumSize(new Dimension(240, 100));
-
+        // Resets the boggle board
+        shakeDiceButton.addActionListener(reset);
+         
         // add them to the wordsPanel
         wordsPanel.add(scrollPane);
         wordsPanel.add(timeLabel);
@@ -195,7 +197,7 @@ public class BoggleUi{
         diceButtons = new JButton[Board.GRID][Board.GRID];
         
         // loop for col, and rows
-        for(int row = 0; row < Board.GRID; row++){
+        for(int row = 0; row < Board.GRID; row++)
             for(int col = 0; col < Board.GRID; col++){
                 
                 diceButtons[row][col] = new JButton();
@@ -203,7 +205,7 @@ public class BoggleUi{
                 bogglePanel.add(diceButtons[row][col]);
                 counter++;
             }
-        }
+        
 
     }
     
@@ -219,12 +221,15 @@ public class BoggleUi{
         @Override
         public void actionPerformed(ActionEvent ae){
             
+            // Ask user if they want to exit game 
+            // if yes exit
+            // if no continue
             int response = JOptionPane.showConfirmDialog(null, "Confirm to exit Boggle?", 
                     "Exit?", JOptionPane.YES_NO_OPTION);
             if(response == JOptionPane.YES_OPTION)
                 System.exit(0);
             else if(response == JOptionPane.NO_OPTION){
-                System.out.println("No");
+                System.out.println();
             }
                 
                 
@@ -235,12 +240,12 @@ public class BoggleUi{
         
         @Override
         public void actionPerformed(ActionEvent e){
-             
+            
             if(seconds == 0 && minutes == 0){
                 timer.stop();
             }
             else{
-                
+                // makes sure the timer displays properly. i.e., 0:59
                 if(seconds == 0){
                     
                     seconds = 59;
@@ -250,6 +255,7 @@ public class BoggleUi{
                     seconds--;
                 }
             }
+            // if seconds is less than 10 add a 0 to the front. i.e., 2:09
             if(seconds < 10){
                 String strSeconds = "0" + String.valueOf(seconds);
                 timeLabel.setText(String.valueOf(minutes) + ":" + strSeconds);
@@ -267,8 +273,10 @@ public class BoggleUi{
         @Override
         public void actionPerformed(ActionEvent e) {
             
+            // Resets leters
             setupBogglePanel();
             
+            // Resets text for new game
             wordsArea.setText("");
             scoreLabel.setText("0");
             currentLabel.setText("");
@@ -276,8 +284,9 @@ public class BoggleUi{
              
             frame.add(bogglePanel, BorderLayout.WEST);
             
-            frame.repaint();
-            frame.revalidate();
+            // updates the UI container
+            bogglePanel.repaint();
+            bogglePanel.revalidate();
             
             // restarts timer
             timer.stop();
