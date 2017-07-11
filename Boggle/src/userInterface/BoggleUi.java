@@ -216,6 +216,22 @@ public class BoggleUi{
         
     }
     
+    private void changeDice(){
+        
+        // counter fro the ArrayList of the 16 letters
+        int counter = 0;
+        
+        // get new letters for the game
+        board.shakeDice();
+        
+        for(int row = 0; row < Board.GRID; row++)
+            for(int col = 0; col < Board.GRID; col++){
+                
+                diceButtons[row][col].setText(board.getGameDice().get(counter));
+                counter++;
+            }
+    }
+    
     private class ExitListener implements ActionListener{
         
         @Override
@@ -274,7 +290,7 @@ public class BoggleUi{
         public void actionPerformed(ActionEvent e) {
             
             // Resets leters
-            setupBogglePanel();
+            changeDice();
             
             // Resets text for new game
             wordsArea.setText("");
