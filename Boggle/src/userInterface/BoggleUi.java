@@ -205,8 +205,6 @@ public class BoggleUi{
                 bogglePanel.add(diceButtons[row][col]);
                 counter++;
             }
-        
-
     }
     
     private void setupTimer(){
@@ -279,8 +277,7 @@ public class BoggleUi{
             else{
                 
                 timeLabel.setText(String.valueOf(minutes) + ":" + String.valueOf(seconds));
-            }
-                
+            }                
         }
     }
 
