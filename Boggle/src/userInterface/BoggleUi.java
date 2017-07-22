@@ -13,18 +13,17 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javafx.scene.input.KeyCode.MINUS;
-import static javafx.scene.input.KeyCode.PLUS;
 import javax.swing.*;
-import javax.swing.Timer;
 import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
-import javax.swing.text.BadLocationException;
+import javax.swing.Timer;
 
 /**
  *
@@ -75,9 +74,14 @@ public class BoggleUi{
     private ArrayList<Die> dice;
     private ArrayList<String> dictionaryWords = new ArrayList<String>();
     private ArrayList<String> foundWords = new ArrayList<String>();
+    private ArrayList <String> computersWords = new ArrayList();
+    
     
     int MAX_INDEX = 4;
-    int MIN_INDEX = 3;
+    int MIN_INDEX = 0;
+    
+    int PLUS = 1;
+    int MINUS = -1;
 
     public BoggleUi(Board inBoard){
         
@@ -105,7 +109,8 @@ public class BoggleUi{
     	setupBogglePanel();
         // Initialize Timer
         setupTimer();
-
+        
+        
     	// add back into the frame and make it visible
     	frame.setJMenuBar(menuBar);
     	frame.add(currentPanel, BorderLayout.SOUTH);
@@ -133,6 +138,8 @@ public class BoggleUi{
         exit.setMnemonic('E');
         exit.addActionListener(new ExitListener());
         
+        document = new BoggleStyleDocument();
+        
         game.add(newGame);
         game.add(exit);
         menuBar.add(game);
@@ -151,11 +158,13 @@ public class BoggleUi{
         currentLabel.setMinimumSize(new Dimension(300, 50));
         currentLabel.setPreferredSize(new Dimension(300, 50));
         currentLabel.setHorizontalAlignment(SwingConstants.LEFT);
+       
         
         // initialize current submit
         currentSubmit = new JButton("Submit Word");
         currentSubmit.setMinimumSize(new Dimension(200, 100));
         currentSubmit.setPreferredSize(new Dimension(200, 50));
+        currentSubmit.addActionListener(new SubmitWordListener());
         
         // Initialize scoreLabel
         scoreLabel = new JLabel();
@@ -201,6 +210,7 @@ public class BoggleUi{
         shakeDiceButton.setMaximumSize(new Dimension(240, 100));
         // Resets the boggle board
         shakeDiceButton.addActionListener(reset);
+
          
         // add them to the wordsPanel
         wordsPanel.add(scrollPane);
@@ -328,7 +338,7 @@ public class BoggleUi{
             randomWordSelect();
         }
         
-        // wordsArea.setText("");
+        wordsArea.setText("");
         
         String computerWords = "";
         
@@ -340,7 +350,7 @@ public class BoggleUi{
                 StyleConstants.setStrikeThrough(document.getAttrStyle(), true);
                 wordsArea.setDocument(document);
                 
-                computerWords += (foundWords.get(j) + '\n');
+                computerWords += (foundWords.get(j) + "\n");
                 
                 modifyScore(MINUS, foundWords.get(j)); 
             }
@@ -350,9 +360,9 @@ public class BoggleUi{
             }
             try{
                 
-                document.insertString(document.getLength(), foundWords.get(j) + '\n', null);
+                document.insertString(document.getLength(), foundWords.get(j) + "\n", null);
             }
-            catch (BadLocationException ex){
+            catch (BadLocationExeption ex){
                 
                 Logger.getLogger(BoggleUi.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -427,7 +437,7 @@ public class BoggleUi{
         }
     }
     
-    // inter classes
+    // innner classes
     private class BoggleStyleDocument extends DefaultStyledDocument{
         
         private Style primaryStyle;
@@ -443,7 +453,7 @@ public class BoggleUi{
         }
         
         @Override
-        public void insertString(int offs, String str, AttributeSet a) throws BadLocationExeption{
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException{
             
             super.insertString(offs, str, primaryStyle);
         }
@@ -468,6 +478,24 @@ public class BoggleUi{
                 
         }    
     }
+    
+   /* private void changeDice(){
+        
+        // counter for the ArrayList of 16 letters
+        int counter = 0;
+        
+        // get new letters for the game
+        board.shakeDice();
+        
+        for(int row = 0; row < Board.GRID; row++)
+            for(int col = 0; col < Board.GRID; col++){
+                
+                diceButtons[row][col].setText(board.getGameDice().get(counter));
+                counter++;
+            }
+        
+    }
+*/
     
     private class TimerListner implements ActionListener{
         
