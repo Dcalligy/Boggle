@@ -76,8 +76,8 @@ public class BoggleUi{
     private ArrayList<String> foundWords = new ArrayList<String>();
     private ArrayList <String> computersWords = new ArrayList();
     
-    private final static int MAX_INDEX = 4;
-    private final static int MIN_INDEX = 1;
+    private final static int MAX_INDEX = 3;
+    private final static int MIN_INDEX = 0;
     private final static String PLUS = "+";
     private final static String MINUS = "-";
     
