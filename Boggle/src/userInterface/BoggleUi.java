@@ -72,22 +72,22 @@ public class BoggleUi{
     boolean randomWords[];
     
     private ArrayList<Die> dice;
-    private ArrayList<String> dictionaryWords = new ArrayList<String>();
+    private ArrayList<String> dictionaryWords = new ArrayList<String> ();
     private ArrayList<String> foundWords = new ArrayList<String>();
     private ArrayList <String> computersWords = new ArrayList();
     
+    private final static int MAX_INDEX = 4;
+    private final static int MIN_INDEX = 1;
+    private final static String PLUS = "+";
+    private final static String MINUS = "-";
     
-    int MAX_INDEX = 4;
-    int MIN_INDEX = 0;
     
-    int PLUS = 1;
-    int MINUS = -1;
-
-    public BoggleUi(Board inBoard){
+    
+    public BoggleUi(Board inBoard, ArrayList<String> dictionary){
         
         board = inBoard;
-        reset = new ResetGameListener();
-        
+        // reset = new ResetGameListener();
+        dictionaryWords = dictionary;
         initComponents();
     }
 
@@ -98,7 +98,9 @@ public class BoggleUi{
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(660, 500);
     	frame.setResizable(true);
-
+        
+        document = new BoggleStyleDocument();
+        
         // Initialize JMenuBar
     	createMenu();
         // Initialize current JPanel
@@ -109,7 +111,6 @@ public class BoggleUi{
     	setupBogglePanel();
         // Initialize Timer
         setupTimer();
-        
         
     	// add back into the frame and make it visible
     	frame.setJMenuBar(menuBar);
@@ -209,7 +210,7 @@ public class BoggleUi{
         shakeDiceButton.setMinimumSize(new Dimension(240, 100));
         shakeDiceButton.setMaximumSize(new Dimension(240, 100));
         // Resets the boggle board
-        shakeDiceButton.addActionListener(reset);
+        shakeDiceButton.addActionListener(new ResetGameListener());
 
          
         // add them to the wordsPanel
@@ -328,7 +329,7 @@ public class BoggleUi{
         
         // random number of words found by the computer
         int randomNum = random.nextInt(foundWords.size());
-        randomWords = new boolean[foundWords.size()];
+        randomWords = new boolean [foundWords.size()];
         
         JOptionPane.showMessageDialog(null, "The computer found " + randomNum + " of Player's " + foundWords.size());
         
@@ -338,7 +339,7 @@ public class BoggleUi{
             randomWordSelect();
         }
         
-        wordsArea.setText("");
+       // wordsArea.setText("");
         
         String computerWords = "";
         
@@ -360,7 +361,7 @@ public class BoggleUi{
             }
             try{
                 
-                document.insertString(document.getLength(), foundWords.get(j) + "\n", null);
+                document.insertString(document.getLength(), foundWords.get(j) + '\n', null);
             }
             catch (BadLocationExeption ex){
                 
@@ -546,7 +547,7 @@ public class BoggleUi{
             scoreLabel.setText("0");
             currentLabel.setText("");
             timeLabel.setText("3:00");
-            shakeDiceButton.setEnabled(false);
+            shakeDiceButton.setEnabled(true);
              
             // restarts timer
             timer.stop();
