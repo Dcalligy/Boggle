@@ -245,6 +245,7 @@ public class BoggleUi{
                 // add the buttons using setText() method and the getter from Board.java
                 diceButtons[row][col].setText(board.getGameDice().get(counter));
                 bogglePanel.add(diceButtons[row][col]);
+                diceButtons[row][col].addActionListener(new JButtonListener());
                 counter++;
             }
         
@@ -363,7 +364,7 @@ public class BoggleUi{
                 
                 document.insertString(document.getLength(), foundWords.get(j) + '\n', null);
             }
-            catch (BadLocationExeption ex){
+            catch (BadLocationException ex){
                 
                 Logger.getLogger(BoggleUi.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -618,5 +619,4 @@ public class BoggleUi{
             }
         }
     }
-
 }
