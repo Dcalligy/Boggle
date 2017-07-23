@@ -377,7 +377,8 @@ public class BoggleUi{
                 document.insertString(document.getLength(), foundWords.get(j) + "\n", null);
             }
             catch (BadLocationException ex){
-                
+                // reports bad locations within document 
+                // to a location that doesnt exist
                 Logger.getLogger(BoggleUi.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
