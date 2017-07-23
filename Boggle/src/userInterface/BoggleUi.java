@@ -76,7 +76,7 @@ public class BoggleUi{
     private ArrayList<String> foundWords = new ArrayList<String>();
     private ArrayList <String> computersWords = new ArrayList();
     
-    private final static int MAX_INDEX = 3;
+    private final static int MAX_INDEX = 4;
     private final static int MIN_INDEX = 0;
     private final static String PLUS = "+";
     private final static String MINUS = "-";
@@ -158,6 +158,7 @@ public class BoggleUi{
         currentLabel.setMinimumSize(new Dimension(300, 50));
         currentLabel.setPreferredSize(new Dimension(300, 50));
         currentLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        
        
         
         // initialize current submit
@@ -244,11 +245,9 @@ public class BoggleUi{
                 // add the buttons using setText() method and the getter from Board.java
                 diceButtons[row][col].setText(board.getGameDice().get(counter));
                 bogglePanel.add(diceButtons[row][col]);
-                diceButtons[row][col].addActionListener(new JButtonListener());
+                diceButtons[row][col].addActionListener(new ButtonListener());
                 counter++;
             }
-        
-
     }
     
     private void setupTimer(){
@@ -600,5 +599,4 @@ public class BoggleUi{
             }
         }
     }
-
 }
