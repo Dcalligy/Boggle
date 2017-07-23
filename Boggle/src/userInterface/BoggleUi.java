@@ -86,7 +86,6 @@ public class BoggleUi{
     public BoggleUi(Board inBoard, ArrayList<String> dictionary){
         
         board = inBoard;
-        // reset = new ResetGameListener();
         dictionaryWords = dictionary;
         initComponents();
     }
@@ -362,7 +361,7 @@ public class BoggleUi{
             }
             try{
                 
-                document.insertString(document.getLength(), foundWords.get(j) + '\n', null);
+                document.insertString(document.getLength(), foundWords.get(j) + "\n", null);
             }
             catch (BadLocationException ex){
                 
@@ -480,24 +479,6 @@ public class BoggleUi{
                 
         }    
     }
-    
-   /* private void changeDice(){
-        
-        // counter for the ArrayList of 16 letters
-        int counter = 0;
-        
-        // get new letters for the game
-        board.shakeDice();
-        
-        for(int row = 0; row < Board.GRID; row++)
-            for(int col = 0; col < Board.GRID; col++){
-                
-                diceButtons[row][col].setText(board.getGameDice().get(counter));
-                counter++;
-            }
-        
-    }
-*/
     
     private class TimerListner implements ActionListener{
         
@@ -619,4 +600,5 @@ public class BoggleUi{
             }
         }
     }
+
 }
