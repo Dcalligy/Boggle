@@ -80,7 +80,7 @@ public class BoggleUi{
     boolean randomWords[];
     
     // array list for dice
-    private ArrayList<Die> die;
+    private ArrayList<Die> dice;
     // Array list to store dictionary data
     private ArrayList<String> dictionaryWords = new ArrayList<String> ();
     // ArrayList use to store words found
@@ -89,12 +89,10 @@ public class BoggleUi{
     private ArrayList <String> computersWords = new ArrayList();
     
     // range for the buttons
-    private final static int MAX_INDEX = 4;
-    private final static int MIN_INDEX = 1;
+    private final static int MAX_INDEX = 3;
+    private final static int MIN_INDEX = 0;
     private final static String PLUS = "+";
     private final static String MINUS = "-";
-    
-    
     
     public BoggleUi(Board inBoard, ArrayList<String> dictionary){
         
@@ -171,9 +169,7 @@ public class BoggleUi{
         currentLabel.setMinimumSize(new Dimension(300, 50));
         currentLabel.setPreferredSize(new Dimension(300, 50));
         currentLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        
-       
-        
+
         // initialize current submit
         currentSubmit = new JButton("Submit Word");
         currentSubmit.setMinimumSize(new Dimension(200, 100));
@@ -241,7 +237,7 @@ public class BoggleUi{
         
         // get new letters for the game from Board.java
         board.shakeDice();
-
+        
     	// initialize boggle panel
         bogglePanel = new JPanel(new GridLayout(4, 4));
         bogglePanel.setMinimumSize(new Dimension(400, 400));
