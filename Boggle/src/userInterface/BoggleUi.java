@@ -68,7 +68,7 @@ public class BoggleUi{
     // timer
     private Timer timer;
     private int minutes = 3;
-    private int seconds = 0;
+    private int seconds = 1;
     
     // Action Listeners
     private JButtonListener jButtonListener;
@@ -256,7 +256,9 @@ public class BoggleUi{
                 diceButtons[row][col].setText(board.getGameDice().get(counter));
                 bogglePanel.add(diceButtons[row][col]);
                 // adds action to where the user can click on the buttons to create words (not sure if its working properly)
+                diceButtons[row][col].addActionListener(new JButtonListener());
                 diceButtons[row][col].addActionListener(new ButtonListener());
+                diceButtons[row][col].setEnabled(true);
                 counter++;
             }
     }
@@ -503,6 +505,7 @@ public class BoggleUi{
             
             if(seconds == 0 && minutes == 0){
                 timer.stop();
+                computerCompare();
             }
             else{
                 // makes sure the timer displays properly. i.e., 0:59
@@ -594,32 +597,32 @@ public class BoggleUi{
                     
                     diceButtons[tempRow - 1][tempCol + 1].setEnabled(true);
                 }
-                // for the button to the right
-                // set true for dice surrounding the buttons
-                // make sure its not outside the index
-                if(tempRow + 1 <= MAX_INDEX){
-                    
-                    diceButtons[tempRow + 1][tempCol].setEnabled(true);
-                    if(tempCol - 1 >= MIN_INDEX){
-                        
-                        diceButtons[tempRow + 1][tempCol - 1].setEnabled(true);
-                    }
-                    if(tempCol + 1 <= MAX_INDEX){
-                        
-                        diceButtons[tempRow + 1][tempCol + 1].setEnabled(true);
-                    }
-                }
-                // for the buttons above
-                // set true for dice surrounding the buttons
-                // make sure it doesnt go outside of the index
+            }
+            // for the button to the right
+            // set true for dice surrounding the buttons
+            // make sure its not outside the index
+            if(tempRow + 1 <= MAX_INDEX){
+                
+                diceButtons[tempRow + 1][tempCol].setEnabled(true);
                 if(tempCol - 1 >= MIN_INDEX){
                     
-                    diceButtons[tempRow][tempCol - 1].setEnabled(true);
+                    diceButtons[tempRow + 1][tempCol - 1].setEnabled(true);
                 }
                 if(tempCol + 1 <= MAX_INDEX){
                     
-                    diceButtons[tempRow][tempCol + 1].setEnabled(true);
+                    diceButtons[tempRow + 1][tempCol + 1].setEnabled(true);
                 }
+            }
+            // for the buttons above 
+            // set true for dice surrounding the buttons
+            // make sure its not outside the index
+            if(tempCol - 1 >= MIN_INDEX){
+                
+                diceButtons[tempRow][tempCol - 1].setEnabled(true);
+            }
+            if(tempCol + 1 <= MAX_INDEX){
+                
+                diceButtons[tempRow][tempCol + 1].setEnabled(true);
             }
         }
     }
