@@ -36,17 +36,28 @@ public class BoggleUi{
     private JMenu game;
     private JMenuItem exit;
     private JMenuItem newGame;
-    private JPanel currentPanel;
-    private JButton[][] diceButtons;
+    
+    // word found
     private JPanel wordsPanel;
     private JScrollPane scrollPane;
     private JTextPane wordsArea;
+    
+    // current words
+    private JPanel currentPanel;
     private JLabel currentLabel;
-    private JButton shakeDiceButton;
-    private JPanel bogglePanel;
-    private JLabel scoreLabel;
     private JButton currentSubmit;
+    
+    // Boggle board
+    private JButton[][] diceButtons;
+    private JPanel bogglePanel;
+    
+    // player's score
+    private JLabel scoreLabel;
+    int score = 0;
+    
+    //time label
     private JLabel timeLabel;
+    private JButton shakeDiceButton;
     
     // class Board reference object
     private Board board;
@@ -59,9 +70,6 @@ public class BoggleUi{
     private int minutes = 3;
     private int seconds = 0;
     
-    // Player's Score
-    int score = 0;
-    
     // Action Listeners
     private JButtonListener jButtonListener;
     private ButtonListener buttonListener;
@@ -71,13 +79,18 @@ public class BoggleUi{
     
     boolean randomWords[];
     
-    private ArrayList<Die> dice;
+    // array list for dice
+    private ArrayList<Die> die;
+    // Array list to store dictionary data
     private ArrayList<String> dictionaryWords = new ArrayList<String> ();
+    // ArrayList use to store words found
     private ArrayList<String> foundWords = new ArrayList<String>();
+    
     private ArrayList <String> computersWords = new ArrayList();
     
+    // range for the buttons
     private final static int MAX_INDEX = 4;
-    private final static int MIN_INDEX = 0;
+    private final static int MIN_INDEX = 1;
     private final static String PLUS = "+";
     private final static String MINUS = "-";
     
@@ -165,6 +178,7 @@ public class BoggleUi{
         currentSubmit = new JButton("Submit Word");
         currentSubmit.setMinimumSize(new Dimension(200, 100));
         currentSubmit.setPreferredSize(new Dimension(200, 50));
+        // adds action to "Submit Word" button
         currentSubmit.addActionListener(new SubmitWordListener());
         
         // Initialize scoreLabel
@@ -245,6 +259,7 @@ public class BoggleUi{
                 // add the buttons using setText() method and the getter from Board.java
                 diceButtons[row][col].setText(board.getGameDice().get(counter));
                 bogglePanel.add(diceButtons[row][col]);
+                // adds action to where the user can click on the buttons to create words (not sure if its working properly)
                 diceButtons[row][col].addActionListener(new ButtonListener());
                 counter++;
             }
@@ -257,6 +272,7 @@ public class BoggleUi{
         
     }
     
+    // adds words to the text area.
     private void updateTextArea(String data){
         
         wordsArea.setText(wordsArea.getText() + "\n" + data);
@@ -342,10 +358,12 @@ public class BoggleUi{
         
         String computerWords = "";
         
+        // takes words found from ArrayList
         for(int j = 0; j < foundWords.size(); j++){
-            
+            // check if value was true
             if(randomWords[j] == true){
                 
+                // computer found the word
                 System.out.println("Word " + j + " of the player was found by the computer ");
                 StyleConstants.setStrikeThrough(document.getAttrStyle(), true);
                 wordsArea.setDocument(document);
@@ -402,7 +420,8 @@ public class BoggleUi{
         
         @Override
         public void actionPerformed(ActionEvent e){
-            
+            // compares the word to the words in the dictionary
+            // if word is in the dictionary, update text area
             if(dictionaryWords.contains(currentLabel.getText().toLowerCase()) == true){
                 
                 updateTextArea(currentLabel.getText());
@@ -411,7 +430,7 @@ public class BoggleUi{
                 scoreLabel.setText(String.valueOf(score));
                 currentLabel.setText("");
             }
-            else{
+            else{// not in the dictionary
                 JOptionPane.showMessageDialog(null, "Not a valid word!");
                 currentLabel.setText("");
             }
@@ -422,7 +441,7 @@ public class BoggleUi{
             for(int row = 0; row <= MAX_INDEX; row++){
                 
                 for(int col = 0; col <= MAX_INDEX; col++){
-                    
+                    // enables diceButton at the current row/col and sets it to true
                     diceButtons[row][col].setEnabled(true);
                     
                     if(e.getSource().equals(diceButtons[row][col])){
@@ -438,6 +457,7 @@ public class BoggleUi{
     }
     
     // innner classes
+    // allows us to use strikethrough if AI finds same words as user
     private class BoggleStyleDocument extends DefaultStyledDocument{
         
         private Style primaryStyle;
@@ -520,15 +540,15 @@ public class BoggleUi{
             bogglePanel.removeAll();
             setupBogglePanel();
             frame.add(bogglePanel, BorderLayout.WEST);
-            bogglePanel.revalidate();
+            bogglePanel.revalidate(); // updates UI
             bogglePanel.repaint();
             
             // Resets text for new game
-            wordsArea.setText("");
-            scoreLabel.setText("0");
-            currentLabel.setText("");
-            timeLabel.setText("3:00");
-            shakeDiceButton.setEnabled(true);
+            wordsArea.setText(""); // clears words found
+            scoreLabel.setText("0"); // resets score
+            currentLabel.setText(""); // resets currentLabel
+            timeLabel.setText("3:00"); // resets timer
+            shakeDiceButton.setEnabled(true); // resets shakeDiceButton
              
             // restarts timer
             timer.stop();
@@ -554,6 +574,7 @@ public class BoggleUi{
                 for(int col = 0; col <= MAX_INDEX; col++){
                     
                     // de-enable
+                    // if button isnt in range set to false
                     diceButtons[row][col].setEnabled(false);
                     if(e.getSource().equals(diceButtons[row][col])){
                         
@@ -563,6 +584,8 @@ public class BoggleUi{
                 }
             }
             // for the button to the left
+            // set true to dice surrounding the buttons
+            // make sure its not outside the index
             if(tempRow - 1 >= MIN_INDEX){
                 
                 diceButtons[tempRow - 1][tempCol].setEnabled(true);
@@ -572,9 +595,11 @@ public class BoggleUi{
                 }
                 if(tempCol + 1 <= MAX_INDEX){
                     
-                    diceButtons[tempRow - 1][tempCol - 1].setEnabled(true);
+                    diceButtons[tempRow - 1][tempCol + 1].setEnabled(true);
                 }
                 // for the button to the right
+                // set true for dice surrounding the buttons
+                // make sure its not outside the index
                 if(tempRow + 1 <= MAX_INDEX){
                     
                     diceButtons[tempRow + 1][tempCol].setEnabled(true);
@@ -588,6 +613,8 @@ public class BoggleUi{
                     }
                 }
                 // for the buttons above
+                // set true for dice surrounding the buttons
+                // make sure it doesnt go outside of the index
                 if(tempCol - 1 >= MIN_INDEX){
                     
                     diceButtons[tempRow][tempCol - 1].setEnabled(true);
