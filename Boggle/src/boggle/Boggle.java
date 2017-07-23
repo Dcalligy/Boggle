@@ -15,51 +15,47 @@ import userInterface.BoggleUi;
  *
  * @author Dillon
  */
-public class Boggle {
+public class Boggle 
+{
     
     // Array list to store data value of each die
     private static ArrayList<String> boggleData = new ArrayList();
-    
+  
     // Array list to store data of the dictionary file
-    private static ArrayList<String> dictionaryData = new ArrayList();
+    private static ArrayList<String> dictionaryData = new ArrayList();    
     
-    // name of the boggle data file using relative pathing
+    // name of the Boggle data file using relative pathing 
     private static String dataFileName = new String("../data/BoggleData.txt");
     
     // name of the dictionary file using relative pathing
-    private static String dictionaryFileName = new String("../data/Dictionary.txt");
+    private static String dictionayFileName = new String("../data/Dictionary.txt");
     
-    // ArrayList to store boggle data equal to shakeDice
-    private static ArrayList<String> shakeDice = new ArrayList();
-    
-
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
+        System.out.println("Welcome to Boggle!");
+        JOptionPane.showMessageDialog(null, "Let's Play Boggle!");
         
-        JOptionPane.showMessageDialog(null, "Let's play Boggle!");
-        
-        // read in dice data file 
+        // read in the dice data file
         ReadDataFile data = new ReadDataFile(dataFileName);
         data.populateData();
-        
-        //read in the dictionary file
-        ReadDataFile  dictionary = new ReadDataFile(dictionaryFileName);
+ 
+        //read in the dictionary data file
+        ReadDataFile dictionary = new ReadDataFile(dictionayFileName);
         dictionary.populateData();
         
-        // create an instance of Board parsing the boggleData
+        // create instance of Board passing the boggleData
         Board board = new Board(data.getData(), dictionary.getData());
         board.populateDice();
-        
-        System.out.println("There are " + dictionary.getData().size()+ " entries in the dictionary.");
-        System.out.println();
+       
+        System.out.println("There are " + dictionary.getData().size() + " entries in the dictionary"); 
         
         board.shakeDice();
         board.displayGameData();
         boggleData = board.getGameDice();
-        BoggleUi BoggleUi = new BoggleUi(board, dictionaryData);
-         
+        
+        BoggleUi ui = new BoggleUi(board, dictionary.getData());
     }
-    
 }
