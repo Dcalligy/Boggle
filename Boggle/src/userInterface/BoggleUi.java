@@ -468,7 +468,7 @@ public class BoggleUi{
         
         public BoggleStyleDocument(){
             
-            super();
+            super();// used to call the properties of parent class
             primaryStyle = this.addStyle("Primary", null);
         }
         public Style getAttrStyle(){
