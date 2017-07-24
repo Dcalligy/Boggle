@@ -423,17 +423,22 @@ public class BoggleUi{
             // if word is in the dictionary, update text area
             if(dictionaryWords.contains(currentLabel.getText().toLowerCase()) == true){
                 
-                updateTextArea(currentLabel.getText());
-                modifyScore(PLUS, currentLabel.getText());
-                foundWords.add(currentLabel.getText());
-                scoreLabel.setText(String.valueOf(score));
-                currentLabel.setText("");
+                if(foundWords.contains(currentLabel.getText())){
+                    JOptionPane.showMessageDialog(null, "DUPLICATED WORDS NOT ALLOWED!");
+                    currentLabel.setText("");
+                }
+                else{
+                    updateTextArea(currentLabel.getText());
+                    modifyScore(PLUS, currentLabel.getText());
+                    foundWords.add(currentLabel.getText());
+                    scoreLabel.setText(String.valueOf(score));
+                    currentLabel.setText("");
+                }
             }
             else{// not in the dictionary
                 JOptionPane.showMessageDialog(null, "Not a valid word!");
                 currentLabel.setText("");
             }
-            
             // re-enable all butttons
             int tempRow = -1;
             int tempCol = -1;
